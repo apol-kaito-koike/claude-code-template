@@ -1,8 +1,14 @@
 {
 	"name": "Claude Code Container",
 	"build": {
-		"dockerfile": "../Dockerfile",
-		"context": ".."
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": {
+			"USERNAME": "dev_user",
+			"GROUPNAME": "apol",
+			"UID": "1000",
+			"GID": "1000"
+		}
 	},
 
 	"features": {
@@ -10,6 +16,41 @@
     	"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
 	},
 	
-	"remoteUser": "devuser",
-    "workspaceFolder": "/home/devuser/workspace",
+	// ワークスペースをマウント（WSLとコンテナ間で共有）
+	"mounts": [
+		{
+			"source": "${localWorkspaceFolder}",
+			"target": "/home/dev_user/workspace",
+			"type": "bind"
+		},
+		{
+			"source": "dev_user-home",
+			"target": "/home/dev_user",
+			"type": "volume"
+		}
+	],
+	
+	"remoteUser": "dev_user",
+    "workspaceFolder": "/home/dev_user/workspace",
+	
+	// Git設定の継承
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	},
+	
+	// 初期化コマンド
+	"postCreateCommand": "sudo chown -R dev_user:apol /home/dev_user/workspace",
+	
+	// VS Code設定の同期
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash"
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.pylint"
+			]
+		}
+	}
 }

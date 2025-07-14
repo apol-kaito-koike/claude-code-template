@@ -12,7 +12,7 @@ This is a DevContainer configuration repository that sets up a development envir
   - Note: There are two versions in different locations:
     - Root version
     - `.devcontainer/` version (preferred by VSCode)
-  - Both use the same default user: `devuser`
+  - Both use the same default user: `dev_user`
 - **Dockerfile**: Creates the container with Python 3.12-slim and configurable user setup
 - **changebash.sh**: Script that sets up custom bash prompt with Git branch display (uses $HOME for portability)
 - **.bashrc**: Custom bash configuration with Git-aware prompt
@@ -47,4 +47,4 @@ After container creation, the `changebash.sh` script runs automatically to:
 - This is a DevContainer setup repository, not an application codebase
 - The custom bash prompt displays the current Git branch when in a Git repository
 - The environment uses portable configuration with environment variables and $HOME references
-- Default user is `devuser` but can be customized via build args in devcontainer.json
+- Default user is `dev_user` but can be customized via build args in devcontainer.json
