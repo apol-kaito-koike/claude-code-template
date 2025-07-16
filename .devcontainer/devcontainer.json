@@ -23,6 +23,12 @@
 			"target": "/home/dev_user/workspace",
 			"type": "bind"
 		},
+		//WSLのホームディレクトリ配下の.sshをマウントする
+		{
+			"source": "${localEnv:HOME}/.ssh",
+			"target": "/home/dev_user/.ssh",
+			"type": "bind"
+		},
 		{
 			"source": "dev_user-home",
 			"target": "/home/dev_user",
